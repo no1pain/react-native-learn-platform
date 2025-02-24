@@ -1,29 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import HomeScreen from "@/src/screens/HomeScreen/ui/HomeScreen";
 import { OnboardingScreen } from "@/src/screens/OnBoardingScreen";
-import LoginScreen from "@/src/screens/LoginScreen/ui/LoginScreen"; // Import your Login screen
 import ScreenWrapper from "../shared/wrappers/ScreenWrapper/ui/ScreenWrapper";
+import { useAuth } from "../shared/hooks/useAuth";
+import LoginRoute from "./routes/LoginRoute";
 
-const Stack = createStackNavigator();
+type RootStackParamList = {
+  Onboarding: undefined;
+  Login: undefined;
+  Home: undefined;
+};
 
-const AppNavigator = () => {
-  const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+const Stack = createStackNavigator<RootStackParamList>();
 
-  useEffect(() => {
-    const checkAppState = async () => {
-      const hasSeenIntro = await AsyncStorage.getItem("hasSeenIntro");
-      const userToken = await AsyncStorage.getItem("userToken"); // Assuming token is stored after login
-
-      setIsFirstLaunch(hasSeenIntro === null);
-      setIsAuthenticated(!!userToken);
-    };
-
-    checkAppState();
-  }, []);
+const AppNavigator: React.FC = () => {
+  const { isFirstLaunch, isAuthenticated, setIsAuthenticated } = useAuth();
 
   if (isFirstLaunch === null || isAuthenticated === null) return null;
 
@@ -37,7 +30,7 @@ const AppNavigator = () => {
 
           <Stack.Screen name="Login">
             {(props) => (
-              <LoginScreen {...props} setIsAuthenticated={setIsAuthenticated} />
+              <LoginRoute {...props} setIsAuthenticated={setIsAuthenticated} />
             )}
           </Stack.Screen>
 
