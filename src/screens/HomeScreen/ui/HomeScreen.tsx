@@ -6,6 +6,7 @@ const HomeScreen = () => {
   return (
     <View>
       <Header />
+      <Text style={{ marginTop: 100, marginLeft: 150 }}>HomeScreen</Text>
     </View>
   );
 };
