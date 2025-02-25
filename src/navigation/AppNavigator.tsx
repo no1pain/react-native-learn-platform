@@ -2,15 +2,17 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "@/src/screens/HomeScreen/ui/HomeScreen";
-import { OnboardingScreen } from "@/src/screens/OnBoardingScreen";
+import { OnboardingScreen } from "../screens/OnBoardingScreen";
 import ScreenWrapper from "../shared/wrappers/ScreenWrapper/ui/ScreenWrapper";
 import { useAuth } from "../shared/hooks/useAuth";
 import LoginRoute from "./routes/LoginRoute";
+import LoginWithYourAccount from "../screens/LoginWithYourAccount/ui/LoginWithYourAccount";
 
 type RootStackParamList = {
-  Onboarding: undefined;
+  OnboardingScreen: undefined;
   Login: undefined;
   Home: undefined;
+  LoginWithYourAccount: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -22,23 +24,24 @@ const AppNavigator: React.FC = () => {
 
   return (
     <NavigationContainer>
-      <ScreenWrapper>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {isFirstLaunch && (
-            <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-          )}
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {isFirstLaunch && (
+          <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+        )}
 
-          <Stack.Screen name="Login">
-            {(props) => (
-              <LoginRoute {...props} setIsAuthenticated={setIsAuthenticated} />
-            )}
-          </Stack.Screen>
-
-          {isAuthenticated && (
-            <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="Login"
+          children={(props) => (
+            <LoginRoute {...props} setIsAuthenticated={setIsAuthenticated} />
           )}
-        </Stack.Navigator>
-      </ScreenWrapper>
+        />
+        <Stack.Screen
+          name="LoginWithYourAccount"
+          component={LoginWithYourAccount}
+        />
+
+        {isAuthenticated && <Stack.Screen name="Home" component={HomeScreen} />}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

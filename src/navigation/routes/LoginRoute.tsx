@@ -1,16 +1,21 @@
 import React from "react";
 import { StackScreenProps } from "@react-navigation/stack";
-import LoginScreen from "@/src/screens/LoginScreen/ui/LoginScreen";
+import Login from "@/src/screens/Login/ui/Login";
 
-type LoginRouteProps = StackScreenProps<any, "Login"> & {
-  setIsAuthenticated: (value: boolean) => void;
+type RootStackParamList = {
+  Login: undefined;
 };
+
+interface LoginRouteProps
+  extends StackScreenProps<RootStackParamList, "Login"> {
+  setIsAuthenticated: (value: boolean) => void;
+}
 
 const LoginRoute: React.FC<LoginRouteProps> = ({
   setIsAuthenticated,
   ...props
 }) => {
-  return <LoginScreen {...props} setIsAuthenticated={setIsAuthenticated} />;
+  return <Login {...props} setIsAuthenticated={setIsAuthenticated} />;
 };
 
 export default LoginRoute;
