@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { ArrowRight } from "lucide-react-native";
 import { styles } from "./LoginStyles";
+import AppleIcon from "@/assets/icons/apple-icon.svg";
 
 type LoginProps = {
   setIsAuthenticated: (value: boolean) => void;
@@ -23,12 +24,18 @@ const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
       <Text style={styles.title}>Let’s you in</Text>
 
       <TouchableOpacity style={styles.button}>
-        <Image source={require("")} style={styles.icon} />
+        <Image
+          source={require("@/assets/icons/google-icon.png")}
+          style={styles.icon}
+        />
         <Text style={styles.buttonText}>Continue with Google</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button}>
-        <Image source={require("")} style={styles.icon} />
+        <Image
+          source={require("@/assets/icons/apple-icon.png")}
+          style={styles.icon}
+        />
         <Text style={styles.buttonText}>Continue with Apple</Text>
       </TouchableOpacity>
 

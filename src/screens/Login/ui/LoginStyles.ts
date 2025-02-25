@@ -65,5 +65,6 @@ export const styles = StyleSheet.create({
     width: 24,
     height: 24,
     marginRight: 16,
+    resizeMode: "contain",
   },
 });

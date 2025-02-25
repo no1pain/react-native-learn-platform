@@ -1,9 +1,8 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "@/src/screens/HomeScreen/ui/HomeScreen";
 import { OnboardingScreen } from "../screens/OnBoardingScreen";
-import ScreenWrapper from "../shared/wrappers/ScreenWrapper/ui/ScreenWrapper";
+import HomeScreen from "@/screens/HomeScreen/ui/HomeScreen";
 import { useAuth } from "../shared/hooks/useAuth";
 import LoginRoute from "./routes/LoginRoute";
 import LoginWithYourAccount from "../screens/LoginWithYourAccount/ui/LoginWithYourAccount";

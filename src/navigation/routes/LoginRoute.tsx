@@ -1,6 +1,6 @@
 import React from "react";
 import { StackScreenProps } from "@react-navigation/stack";
-import Login from "@/src/screens/Login/ui/Login";
+import Login from "@/screens/Login/ui/Login";
 
 type RootStackParamList = {
   Login: undefined;

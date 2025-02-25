@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppProviders from "../AppProviders";
-import AppNavigator from "@/src/navigation/AppNavigator";
+import AppNavigator from "@/navigation/AppNavigator";
 
 const App = () => {
   return (
