@@ -1,21 +1,18 @@
+// Login.tsx
 import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation, StackActions } from "@react-navigation/native"; // Import StackActions
+import { useNavigation } from "@react-navigation/native";
 import { ArrowRight } from "lucide-react-native";
 import { styles } from "./LoginStyles";
+import { useAuth } from "@/shared/hooks/useAuth"; // Import useAuth
 
-type LoginProps = {
-  setIsAuthenticated: (value: boolean) => void;
-};
-
-const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
-  const navigation = useNavigation(); // Use the navigation object from useNavigation
+const Login = () => {
+  const navigation: any = useNavigation();
+  const { setIsAuthenticated } = useAuth(); // Get setIsAuthenticated
 
   const handleLogin = async () => {
-    await AsyncStorage.setItem("isAuthenticated", "true");
-    setIsAuthenticated(true);
-    navigation.dispatch(StackActions.replace("LoginWithYourAccount"));
+    setIsAuthenticated(true); // Update auth state
+    navigation.navigate("LoginWithYourAccount");
   };
 
   return (

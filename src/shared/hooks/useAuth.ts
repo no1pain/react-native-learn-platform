@@ -7,15 +7,29 @@ export const useAuth = () => {
 
   useEffect(() => {
     const checkAppState = async () => {
-      const hasSeenIntro = await AsyncStorage.getItem("hasSeenIntro");
-      const userToken = await AsyncStorage.getItem("userToken"); // Assuming token is stored after login
+      try {
+        const hasSeenIntro = await AsyncStorage.getItem("hasSeenIntro");
+        const userToken = await AsyncStorage.getItem("userToken");
 
-      setIsFirstLaunch(hasSeenIntro === null);
-      setIsAuthenticated(!!userToken);
+        setIsFirstLaunch(hasSeenIntro === null);
+        setIsAuthenticated(!!userToken);
+      } catch (error) {
+        console.error("Error checking app state:", error);
+        setIsAuthenticated(false); // Set to false on error, or handle as needed
+      }
     };
 
     checkAppState();
   }, []);
 
-  return { isFirstLaunch, isAuthenticated, setIsAuthenticated };
+  const logout = async () => {
+    try {
+      await AsyncStorage.removeItem("userToken");
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
+  return { isFirstLaunch, isAuthenticated, setIsAuthenticated, logout };
 };

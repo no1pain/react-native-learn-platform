@@ -1,6 +1,6 @@
+// LoginRoute.tsx
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StackScreenProps } from "@react-navigation/stack";
 import Login from "@/screens/Login/ui/Login";
 import { OnboardingScreen } from "@/screens/OnBoardingScreen";
 import LoginWithYourAccount from "@/screens/LoginWithYourAccount/ui/LoginWithYourAccount";
@@ -12,18 +12,9 @@ type LoginStackParamList = {
   LoginWithYourAccount: undefined;
 };
 
-type RootStackParamList = {
-  Login: undefined;
-};
-
-interface LoginRouteProps
-  extends StackScreenProps<RootStackParamList, "Login"> {
-  setIsAuthenticated: (value: boolean) => void;
-}
-
 const LoginStack = createStackNavigator<LoginStackParamList>();
 
-const LoginRoute: React.FC<LoginRouteProps> = ({ setIsAuthenticated }) => {
+const LoginRoute: React.FC = () => {
   const { isFirstLaunch } = useAuth();
 
   if (isFirstLaunch === null) return null;
@@ -36,12 +27,7 @@ const LoginRoute: React.FC<LoginRouteProps> = ({ setIsAuthenticated }) => {
           component={OnboardingScreen}
         />
       )}
-      <LoginStack.Screen
-        name="LoginMain"
-        children={(nestedProps) => (
-          <Login {...nestedProps} setIsAuthenticated={setIsAuthenticated} />
-        )}
-      />
+      <LoginStack.Screen name="LoginMain" component={Login} />
       <LoginStack.Screen
         name="LoginWithYourAccount"
         component={LoginWithYourAccount}
