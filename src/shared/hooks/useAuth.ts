@@ -15,7 +15,7 @@ export const useAuth = () => {
         setIsAuthenticated(!!userToken);
       } catch (error) {
         console.error("Error checking app state:", error);
-        setIsAuthenticated(false); // Set to false on error, or handle as needed
+        setIsAuthenticated(false);
       }
     };
 
