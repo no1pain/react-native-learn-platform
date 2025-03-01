@@ -1,15 +1,29 @@
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import { ArrowRight, Eye, Mail, Lock } from "lucide-react-native";
-import styles from "./LoginWIthYourAccountStyles";
+import { ArrowRight, Eye, EyeOff, Mail, Lock } from "lucide-react-native";
+import styles from "./LoginWithYourAccountStyles";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 const LoginWithYourAccount = () => {
   const navigation: any = useNavigation();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const handleSignUp = () => {
+    navigation.navigate("Home");
+  };
+
+  const handleTogglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const handleSignIn = () => {
+    navigation.navigate("LoginMain");
+  };
 
   return (
     <View style={styles.container}>
-      <Image source={require("")} style={styles.logo} resizeMode="contain" />
+      <Image style={styles.logo} resizeMode="contain" />
 
       <Text style={styles.heading}>Getting Started.!</Text>
       <Text style={styles.subheading}>
@@ -30,10 +44,16 @@ const LoginWithYourAccount = () => {
         <TextInput
           placeholder="Password"
           placeholderTextColor="#A0A0A0"
-          secureTextEntry
+          secureTextEntry={!passwordVisible}
           style={styles.input}
         />
-        <Eye size={20} color="#A0A0A0" style={styles.iconRight} />
+        <TouchableOpacity onPress={handleTogglePasswordVisibility}>
+          {passwordVisible ? (
+            <EyeOff size={20} color="#A0A0A0" style={styles.iconRight} />
+          ) : (
+            <Eye size={20} color="#A0A0A0" style={styles.iconRight} />
+          )}
+        </TouchableOpacity>
       </View>
 
       <View style={styles.termsContainer}>
@@ -41,12 +61,7 @@ const LoginWithYourAccount = () => {
         <Text style={styles.termsText}>Agree to Terms & Conditions</Text>
       </View>
 
-      <TouchableOpacity
-        onPress={() => {
-          navigation.replace("Home");
-        }}
-        style={styles.signUpButton}
-      >
+      <TouchableOpacity onPress={handleSignUp} style={styles.signUpButton}>
         <Text style={styles.signUpText}>Sign Up</Text>
         <ArrowRight size={24} color="white" />
       </TouchableOpacity>
@@ -55,15 +70,24 @@ const LoginWithYourAccount = () => {
 
       <View style={styles.socialContainer}>
         <TouchableOpacity>
-          <Image source={require("")} style={styles.socialIcon} />
+          <Image
+            source={require("@/shared/assets/icons/google-icon.svg")}
+            style={styles.socialIcon}
+          />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Image source={require("")} style={styles.socialIcon} />
+          <Image
+            source={require("@/shared/assets/icons/apple-icon.svg")}
+            style={styles.socialIcon}
+          />
         </TouchableOpacity>
       </View>
 
       <Text style={styles.loginText}>
-        Already have an Account? <Text style={styles.loginLink}>SIGN IN</Text>
+        Already have an Account?{" "}
+        <Text onPress={handleSignIn} style={styles.loginLink}>
+          SIGN IN
+        </Text>
       </Text>
     </View>
   );

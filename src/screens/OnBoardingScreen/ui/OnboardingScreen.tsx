@@ -1,23 +1,30 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "./OnboardingScreenStyles";
 
-export const OnboardingScreen = ({ navigation }: { navigation: any }) => {
-  const [swiperRef, setSwiperRef] = useState<Swiper | null>(null);
+type SwiperRef = {
+  scrollBy: (index: number) => void;
+};
 
-  const handleNext = (index: number) => {
-    if (swiperRef && index < 2) {
-      swiperRef.scrollBy(1); // Move to next slide
+export const OnboardingScreen = ({ navigation }: { navigation: any }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const swiperRef = useRef<SwiperRef | null>(null);
+
+  const handleNext = () => {
+    if (currentIndex < 2) {
+      if (swiperRef.current) {
+        swiperRef.current.scrollBy(1);
+      }
     } else {
-      handleFinish(); // Last slide navigates to Login
+      handleFinish();
     }
   };
 
   const handleFinish = async () => {
     await AsyncStorage.setItem("hasSeenIntro", "true");
-    navigation.replace("Login"); // Navigate to Login Screen
+    navigation.replace("Login");
   };
 
   return (
@@ -27,20 +34,19 @@ export const OnboardingScreen = ({ navigation }: { navigation: any }) => {
       </TouchableOpacity>
 
       <Swiper
-        ref={(swiper) => setSwiperRef(swiper)}
+        ref={swiperRef as any}
         loop={false}
         dotStyle={styles.dot}
         activeDotStyle={styles.activeDot}
+        onIndexChanged={(index) => setCurrentIndex(index)}
+        showsButtons={false}
       >
         <View style={styles.slide}>
           <Text style={styles.title}>Online Learning</Text>
           <Text style={styles.description}>
             We Provide Online Classes and Pre-Recorded Lectures!
           </Text>
-          <TouchableOpacity
-            onPress={() => handleNext(0)}
-            style={styles.nextButton}
-          >
+          <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
             <Text style={styles.nextText}>Next</Text>
           </TouchableOpacity>
         </View>
@@ -50,10 +56,7 @@ export const OnboardingScreen = ({ navigation }: { navigation: any }) => {
           <Text style={styles.description}>
             Learn from industry-leading experts in every subject.
           </Text>
-          <TouchableOpacity
-            onPress={() => handleNext(1)}
-            style={styles.nextButton}
-          >
+          <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
             <Text style={styles.nextText}>Next</Text>
           </TouchableOpacity>
         </View>
