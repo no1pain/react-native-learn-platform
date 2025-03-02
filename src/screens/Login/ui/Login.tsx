@@ -43,12 +43,12 @@ const Login = () => {
         <Text style={styles.dividerText}>( Or )</Text>
 
         <TouchableOpacity style={styles.signInButton} onPress={handleLogin}>
-          <Text style={styles.signInButtonText}>Sign In with Your Account</Text>
+          <Text style={styles.signInButtonText}>Sign in with your account</Text>
           <ArrowRight size={24} color="white" />
         </TouchableOpacity>
 
         <Text style={styles.signupText}>
-          Don’t have an Account? <Text style={styles.signupLink}>SIGN UP</Text>
+          Don’t have an account? <Text style={styles.signupLink}>SIGN UP</Text>
         </Text>
       </View>
     </View>
