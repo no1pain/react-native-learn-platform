@@ -1,0 +1,54 @@
+{
+  "notifications": [
+    {
+      "id": "1",
+      "title": "New Category Course.!",
+      "description": "New the 3D Design Course is Available Now",
+      "type": "new_course",
+      "icon": "grid",
+      "date": "2024-02-14T09:00:00Z",
+      "isRead": false,
+      "category": "Today"
+    },
+    {
+      "id": "2",
+      "title": "New Category Course.!",
+      "description": "New the 3D Design Course is Available Now",
+      "type": "course_update",
+      "icon": "wallet",
+      "date": "2024-02-14T08:30:00Z",
+      "isRead": false,
+      "category": "Today"
+    },
+    {
+      "id": "3",
+      "title": "Today's Special Offers",
+      "description": "You Have made a Course Payment.",
+      "type": "payment",
+      "icon": "ticket",
+      "date": "2024-02-14T07:15:00Z",
+      "isRead": false,
+      "category": "Today"
+    },
+    {
+      "id": "4",
+      "title": "Credit Card Connected.!",
+      "description": "Credit Card has been Linked!",
+      "type": "payment_method",
+      "icon": "credit-card",
+      "date": "2024-02-13T14:20:00Z",
+      "isRead": true,
+      "category": "Yesterday"
+    },
+    {
+      "id": "5",
+      "title": "Account Setup Successful.!",
+      "description": "Your Account has been Created",
+      "type": "account",
+      "icon": "user",
+      "date": "2023-11-20T10:00:00Z",
+      "isRead": true,
+      "category": "Nov 20, 2022"
+    }
+  ]
+}

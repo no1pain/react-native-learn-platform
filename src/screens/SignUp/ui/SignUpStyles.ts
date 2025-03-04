@@ -50,38 +50,6 @@ export default StyleSheet.create({
   iconRight: {
     marginLeft: 10,
   },
-  forgotPassword: {
-    alignSelf: "flex-end",
-    marginBottom: 20,
-  },
-  forgotPasswordText: {
-    color: "#2563EB",
-    fontSize: 14,
-  },
-  signInButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#2563EB",
-    paddingVertical: 14,
-    borderRadius: 30,
-    width: "100%",
-    marginBottom: 20,
-  },
-  signInButtonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
-    marginRight: 10,
-  },
-  signupText: {
-    fontSize: 14,
-    color: "#6D6D6D",
-  },
-  signupLink: {
-    color: "#2563EB",
-    fontWeight: "bold",
-  },
   termsContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -92,12 +60,27 @@ export default StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 5,
-    backgroundColor: "green",
     marginRight: 10,
   },
   termsText: {
     fontSize: 14,
     color: "#333",
+  },
+  signUpButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#2563EB",
+    paddingVertical: 14,
+    borderRadius: 30,
+    width: "100%",
+    marginBottom: 20,
+  },
+  signUpText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginRight: 10,
   },
   orText: {
     fontSize: 14,

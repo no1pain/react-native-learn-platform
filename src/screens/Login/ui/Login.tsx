@@ -10,17 +10,32 @@ const Login = () => {
   const navigation: any = useNavigation();
   const { setIsAuthenticated } = useAuth();
 
-  const handleLogin = async () => {
-    setIsAuthenticated(true);
+  const handleSocialLogin = async (provider: "google" | "apple") => {
+    try {
+      // TODO: Implement social login
+      console.log(`${provider} login clicked`);
+      // After successful social login:
+      // await AsyncStorage.setItem('userToken', 'your-auth-token');
+      // setIsAuthenticated(true);
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error(`${provider} login error:`, error);
+    }
+  };
+
+  const handleEmailLogin = () => {
     navigation.navigate("LoginWithYourAccount");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.contentWrapper}>
-        <Text style={styles.title}>Let’s you in</Text>
+        <Text style={styles.title}>Let's you in</Text>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleSocialLogin("google")}
+        >
           <View style={styles.iconContainer}>
             <Image
               source={require("@/shared/assets/icons/google-icon.png")}
@@ -30,7 +45,10 @@ const Login = () => {
           <Text style={styles.buttonText}>Continue with Google</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => handleSocialLogin("apple")}
+        >
           <View style={styles.iconContainer}>
             <Image
               source={require("@/shared/assets/icons/apple-icon.png")}
@@ -42,13 +60,22 @@ const Login = () => {
 
         <Text style={styles.dividerText}>( Or )</Text>
 
-        <TouchableOpacity style={styles.signInButton} onPress={handleLogin}>
-          <Text style={styles.signInButtonText}>Sign In with Your Account</Text>
+        <TouchableOpacity
+          style={styles.signInButton}
+          onPress={handleEmailLogin}
+        >
+          <Text style={styles.signInButtonText}>Sign in with your account</Text>
           <ArrowRight size={24} color="white" />
         </TouchableOpacity>
 
         <Text style={styles.signupText}>
-          Don’t have an Account? <Text style={styles.signupLink}>SIGN UP</Text>
+          Don't have an account?{" "}
+          <Text
+            style={styles.signupLink}
+            onPress={() => navigation.navigate("SignUp")}
+          >
+            SIGN UP
+          </Text>
         </Text>
       </View>
     </View>

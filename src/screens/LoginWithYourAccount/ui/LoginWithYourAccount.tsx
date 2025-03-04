@@ -1,41 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import { ArrowRight, Eye, EyeOff, Mail, Lock } from "lucide-react-native";
+import { ArrowRight, Eye, EyeOff, User, Lock } from "lucide-react-native";
 import styles from "./LoginWithYourAccountStyles";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useAuth } from "@/shared/hooks/useAuth";
 
 const LoginWithYourAccount = () => {
   const navigation: any = useNavigation();
+  const { setIsAuthenticated } = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSignUp = () => {
-    navigation.navigate("Home");
+  const handleLogin = async () => {
+    if (!username || !password) {
+      // TODO: Show error message
+      console.error("Please fill in all fields");
+      return;
+    }
+
+    try {
+      // TODO: Implement actual login logic here
+      // For now, just navigate to Home
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   const handleTogglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleSignIn = () => {
-    navigation.navigate("LoginMain");
+  const handleSignUp = () => {
+    navigation.navigate("SignUp");
   };
 
   return (
     <View style={styles.container}>
       <Image style={styles.logo} resizeMode="contain" />
 
-      <Text style={styles.heading}>Getting Started.!</Text>
+      <Text style={styles.heading}>Welcome Back!</Text>
       <Text style={styles.subheading}>
-        Create an Account to Continue your allCourses
+        Sign in to continue your learning journey
       </Text>
 
       <View style={styles.inputContainer}>
-        <Mail size={20} color="#A0A0A0" style={styles.icon} />
+        <User size={20} color="#A0A0A0" style={styles.icon} />
         <TextInput
-          placeholder="Email"
+          placeholder="Username"
           placeholderTextColor="#A0A0A0"
           style={styles.input}
+          value={username}
+          onChangeText={setUsername}
+          autoCapitalize="none"
         />
       </View>
 
@@ -46,6 +64,9 @@ const LoginWithYourAccount = () => {
           placeholderTextColor="#A0A0A0"
           secureTextEntry={!passwordVisible}
           style={styles.input}
+          value={password}
+          onChangeText={setPassword}
+          autoCapitalize="none"
         />
         <TouchableOpacity onPress={handleTogglePasswordVisibility}>
           {passwordVisible ? (
@@ -56,37 +77,19 @@ const LoginWithYourAccount = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.termsContainer}>
-        <TouchableOpacity style={styles.checkbox} />
-        <Text style={styles.termsText}>Agree to Terms & Conditions</Text>
-      </View>
+      <TouchableOpacity style={styles.forgotPassword}>
+        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+      </TouchableOpacity>
 
-      <TouchableOpacity onPress={handleSignUp} style={styles.signUpButton}>
-        <Text style={styles.signUpText}>Sign Up</Text>
+      <TouchableOpacity style={styles.signInButton} onPress={handleLogin}>
+        <Text style={styles.signInButtonText}>Sign In</Text>
         <ArrowRight size={24} color="white" />
       </TouchableOpacity>
 
-      <Text style={styles.orText}>Or Continue With</Text>
-
-      <View style={styles.socialContainer}>
-        <TouchableOpacity>
-          <Image
-            source={require("@/shared/assets/icons/google-icon.svg")}
-            style={styles.socialIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Image
-            source={require("@/shared/assets/icons/apple-icon.svg")}
-            style={styles.socialIcon}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <Text style={styles.loginText}>
-        Already have an Account?{" "}
-        <Text onPress={handleSignIn} style={styles.loginLink}>
-          SIGN IN
+      <Text style={styles.signupText}>
+        Don't have an account?{" "}
+        <Text onPress={handleSignUp} style={styles.signupLink}>
+          SIGN UP
         </Text>
       </Text>
     </View>
