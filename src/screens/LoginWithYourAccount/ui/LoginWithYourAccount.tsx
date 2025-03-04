@@ -1,16 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { ArrowRight, Eye, EyeOff, Mail, Lock } from "lucide-react-native";
 import styles from "./LoginWithYourAccountStyles";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useAuth } from "@/shared/hooks/useAuth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginWithYourAccount = () => {
   const navigation: any = useNavigation();
+  const { setIsAuthenticated } = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
-  const handleSignUp = () => {
-    navigation.navigate("Home");
+  const handleSignUp = async () => {
+    if (!email || !password) {
+      // TODO: Show error message
+      console.error("Please fill in all fields");
+      return;
+    }
+
+    if (!termsAccepted) {
+      // TODO: Show error message
+      console.error("Please accept terms and conditions");
+      return;
+    }
+
+    try {
+      // TODO: Implement actual signup logic here
+      await AsyncStorage.setItem("userToken", "temp-token");
+      setIsAuthenticated(true);
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error("Signup error:", error);
+    }
   };
 
   const handleTogglePasswordVisibility = () => {
@@ -21,11 +45,16 @@ const LoginWithYourAccount = () => {
     navigation.navigate("LoginMain");
   };
 
+  const handleSocialLogin = (provider: string) => {
+    // TODO: Implement social login logic here
+    console.log(`Logging in with ${provider}`);
+  };
+
   return (
     <View style={styles.container}>
       <Image style={styles.logo} resizeMode="contain" />
 
-      <Text style={styles.heading}>Getting Started.!</Text>
+      <Text style={styles.heading}>Getting Started!</Text>
       <Text style={styles.subheading}>
         Create an Account to Continue your allCourses
       </Text>
@@ -36,6 +65,10 @@ const LoginWithYourAccount = () => {
           placeholder="Email"
           placeholderTextColor="#A0A0A0"
           style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
       </View>
 
@@ -46,6 +79,9 @@ const LoginWithYourAccount = () => {
           placeholderTextColor="#A0A0A0"
           secureTextEntry={!passwordVisible}
           style={styles.input}
+          value={password}
+          onChangeText={setPassword}
+          autoCapitalize="none"
         />
         <TouchableOpacity onPress={handleTogglePasswordVisibility}>
           {passwordVisible ? (
@@ -57,11 +93,21 @@ const LoginWithYourAccount = () => {
       </View>
 
       <View style={styles.termsContainer}>
-        <TouchableOpacity style={styles.checkbox} />
+        <TouchableOpacity
+          style={[
+            styles.checkbox,
+            {
+              backgroundColor: termsAccepted ? "#2563EB" : "#FFFFFF",
+              borderWidth: 1,
+              borderColor: "#2563EB",
+            },
+          ]}
+          onPress={() => setTermsAccepted(!termsAccepted)}
+        />
         <Text style={styles.termsText}>Agree to Terms & Conditions</Text>
       </View>
 
-      <TouchableOpacity onPress={handleSignUp} style={styles.signUpButton}>
+      <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
         <Text style={styles.signUpText}>Sign Up</Text>
         <ArrowRight size={24} color="white" />
       </TouchableOpacity>
@@ -69,17 +115,27 @@ const LoginWithYourAccount = () => {
       <Text style={styles.orText}>Or Continue With</Text>
 
       <View style={styles.socialContainer}>
-        <TouchableOpacity>
-          <Image
-            source={require("@/shared/assets/icons/google-icon.svg")}
-            style={styles.socialIcon}
-          />
+        <TouchableOpacity
+          style={styles.socialButton}
+          onPress={() => handleSocialLogin("google")}
+        >
+          <View style={styles.socialIconContainer}>
+            <Image
+              source={require("@/shared/assets/icons/google-icon.png")}
+              style={styles.socialIcon}
+            />
+          </View>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Image
-            source={require("@/shared/assets/icons/apple-icon.svg")}
-            style={styles.socialIcon}
-          />
+        <TouchableOpacity
+          style={styles.socialButton}
+          onPress={() => handleSocialLogin("apple")}
+        >
+          <View style={styles.socialIconContainer}>
+            <Image
+              source={require("@/shared/assets/icons/apple-icon.png")}
+              style={styles.socialIcon}
+            />
+          </View>
         </TouchableOpacity>
       </View>
 
