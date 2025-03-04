@@ -17,7 +17,7 @@ const Login = () => {
       // After successful social login:
       // await AsyncStorage.setItem('userToken', 'your-auth-token');
       // setIsAuthenticated(true);
-      // navigation.navigate('Home');
+      navigation.navigate("Home");
     } catch (error) {
       console.error(`${provider} login error:`, error);
     }
@@ -72,7 +72,7 @@ const Login = () => {
           Don't have an account?{" "}
           <Text
             style={styles.signupLink}
-            onPress={() => navigation.navigate("LoginWithYourAccount")}
+            onPress={() => navigation.navigate("SignUp")}
           >
             SIGN UP
           </Text>

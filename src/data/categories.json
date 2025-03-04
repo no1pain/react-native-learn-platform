@@ -1,0 +1,54 @@
+{
+  "categories": [
+    {
+      "id": "3d-design",
+      "name": "3D Design",
+      "icon": "cube"
+    },
+    {
+      "id": "arts-humanities",
+      "name": "Arts & Humanities",
+      "icon": "palette"
+    },
+    {
+      "id": "graphic-design",
+      "name": "Graphic Design",
+      "icon": "pen-tool"
+    },
+    {
+      "id": "programming",
+      "name": "Programming",
+      "icon": "code"
+    },
+    {
+      "id": "business",
+      "name": "Business",
+      "icon": "briefcase"
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing",
+      "icon": "trending-up"
+    },
+    {
+      "id": "photography",
+      "name": "Photography",
+      "icon": "camera"
+    },
+    {
+      "id": "music",
+      "name": "Music",
+      "icon": "music"
+    },
+    {
+      "id": "data-science",
+      "name": "Data Science",
+      "icon": "database"
+    },
+    {
+      "id": "language",
+      "name": "Languages",
+      "icon": "globe"
+    }
+  ]
+}

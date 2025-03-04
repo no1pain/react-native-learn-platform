@@ -1,39 +1,30 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import { ArrowRight, Eye, EyeOff, Mail, Lock } from "lucide-react-native";
+import { ArrowRight, Eye, EyeOff, User, Lock } from "lucide-react-native";
 import styles from "./LoginWithYourAccountStyles";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@/shared/hooks/useAuth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginWithYourAccount = () => {
   const navigation: any = useNavigation();
   const { setIsAuthenticated } = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [termsAccepted, setTermsAccepted] = useState(false);
 
-  const handleSignUp = async () => {
-    if (!email || !password) {
+  const handleLogin = async () => {
+    if (!username || !password) {
       // TODO: Show error message
       console.error("Please fill in all fields");
       return;
     }
 
-    if (!termsAccepted) {
-      // TODO: Show error message
-      console.error("Please accept terms and conditions");
-      return;
-    }
-
     try {
-      // TODO: Implement actual signup logic here
-      await AsyncStorage.setItem("userToken", "temp-token");
-      setIsAuthenticated(true);
+      // TODO: Implement actual login logic here
+      // For now, just navigate to Home
       navigation.navigate("Home");
     } catch (error) {
-      console.error("Signup error:", error);
+      console.error("Login error:", error);
     }
   };
 
@@ -41,33 +32,27 @@ const LoginWithYourAccount = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleSignIn = () => {
-    navigation.navigate("LoginMain");
-  };
-
-  const handleSocialLogin = (provider: string) => {
-    // TODO: Implement social login logic here
-    console.log(`Logging in with ${provider}`);
+  const handleSignUp = () => {
+    navigation.navigate("SignUp");
   };
 
   return (
     <View style={styles.container}>
       <Image style={styles.logo} resizeMode="contain" />
 
-      <Text style={styles.heading}>Getting Started!</Text>
+      <Text style={styles.heading}>Welcome Back!</Text>
       <Text style={styles.subheading}>
-        Create an Account to Continue your allCourses
+        Sign in to continue your learning journey
       </Text>
 
       <View style={styles.inputContainer}>
-        <Mail size={20} color="#A0A0A0" style={styles.icon} />
+        <User size={20} color="#A0A0A0" style={styles.icon} />
         <TextInput
-          placeholder="Email"
+          placeholder="Username"
           placeholderTextColor="#A0A0A0"
           style={styles.input}
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
+          value={username}
+          onChangeText={setUsername}
           autoCapitalize="none"
         />
       </View>
@@ -92,57 +77,19 @@ const LoginWithYourAccount = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.termsContainer}>
-        <TouchableOpacity
-          style={[
-            styles.checkbox,
-            {
-              backgroundColor: termsAccepted ? "#2563EB" : "#FFFFFF",
-              borderWidth: 1,
-              borderColor: "#2563EB",
-            },
-          ]}
-          onPress={() => setTermsAccepted(!termsAccepted)}
-        />
-        <Text style={styles.termsText}>Agree to Terms & Conditions</Text>
-      </View>
+      <TouchableOpacity style={styles.forgotPassword}>
+        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+      </TouchableOpacity>
 
-      <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
-        <Text style={styles.signUpText}>Sign Up</Text>
+      <TouchableOpacity style={styles.signInButton} onPress={handleLogin}>
+        <Text style={styles.signInButtonText}>Sign In</Text>
         <ArrowRight size={24} color="white" />
       </TouchableOpacity>
 
-      <Text style={styles.orText}>Or Continue With</Text>
-
-      <View style={styles.socialContainer}>
-        <TouchableOpacity
-          style={styles.socialButton}
-          onPress={() => handleSocialLogin("google")}
-        >
-          <View style={styles.socialIconContainer}>
-            <Image
-              source={require("@/shared/assets/icons/google-icon.png")}
-              style={styles.socialIcon}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.socialButton}
-          onPress={() => handleSocialLogin("apple")}
-        >
-          <View style={styles.socialIconContainer}>
-            <Image
-              source={require("@/shared/assets/icons/apple-icon.png")}
-              style={styles.socialIcon}
-            />
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <Text style={styles.loginText}>
-        Already have an Account?{" "}
-        <Text onPress={handleSignIn} style={styles.loginLink}>
-          SIGN IN
+      <Text style={styles.signupText}>
+        Don't have an account?{" "}
+        <Text onPress={handleSignUp} style={styles.signupLink}>
+          SIGN UP
         </Text>
       </Text>
     </View>
