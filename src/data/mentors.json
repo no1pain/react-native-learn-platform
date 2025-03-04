@@ -1,0 +1,36 @@
+{
+  "mentors": [
+    {
+      "id": "1",
+      "name": "Jiya",
+      "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80",
+      "rating": 4.8,
+      "students": 1200,
+      "courses": 8
+    },
+    {
+      "id": "2",
+      "name": "Aman",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80",
+      "rating": 4.9,
+      "students": 1500,
+      "courses": 10
+    },
+    {
+      "id": "3",
+      "name": "Rahul.J",
+      "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80",
+      "rating": 4.7,
+      "students": 980,
+      "courses": 6
+    },
+    {
+      "id": "4",
+      "name": "Manav",
+      "image": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80",
+      "rating": 4.9,
+      "students": 1350,
+      "courses": 9
+    }
+  ]
+}
