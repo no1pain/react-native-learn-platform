@@ -4,14 +4,16 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "src/navigation/routes/LoginRoute.js",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts",
-    "src/navigation/routes/LoginRoute.js"
+    "expo-env.d.ts"
   ]
 }
