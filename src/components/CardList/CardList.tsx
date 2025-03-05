@@ -48,21 +48,25 @@ const CardList: React.FC<CardListProps> = ({ selectedCategory = "all" }) => {
 
   return (
     <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
       {filteredCourses.map((course) => (
-        <CourseCard
-          key={course.id}
-          id={course.id}
-          title={course.title}
-          category={course.category}
-          price={course.price}
-          rating={course.rating}
-          students={course.students}
-          image={course.image}
-          isSaved={course.isSaved}
-        />
+        <View key={course.id} style={styles.cardWrapper}>
+          <CourseCard
+            id={course.id}
+            title={course.title}
+            category={course.category}
+            price={course.price}
+            rating={course.rating}
+            students={course.students}
+            image={course.image}
+            isSaved={course.isSaved}
+            onToggleFavorite={() => toggleFavorite(course.id)}
+          />
+        </View>
       ))}
     </ScrollView>
   );
@@ -70,10 +74,14 @@ const CardList: React.FC<CardListProps> = ({ selectedCategory = "all" }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 0,
   },
   contentContainer: {
-    paddingTop: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+  },
+  cardWrapper: {
+    marginRight: 16,
   },
 });
 

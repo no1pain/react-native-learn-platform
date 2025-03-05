@@ -22,6 +22,7 @@ interface CourseCardProps {
   students: number;
   image: string;
   isSaved?: boolean;
+  onToggleFavorite?: () => void;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
@@ -33,6 +34,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   students,
   image,
   isSaved,
+  onToggleFavorite,
 }) => {
   const navigation = useNavigation<NavigationProp>();
 
@@ -56,7 +58,10 @@ const CourseCard: React.FC<CourseCardProps> = ({
           <Text style={styles.students}>{students} Std</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.bookmarkButton}>
+      <TouchableOpacity
+        style={styles.bookmarkButton}
+        onPress={onToggleFavorite}
+      >
         <Bookmark
           size={20}
           color={isSaved ? "#2B7A78" : "#CCCCCC"}
@@ -71,17 +76,17 @@ const styles = StyleSheet.create({
   courseCard: {
     backgroundColor: "#FFFFFF",
     borderRadius: 16,
+    width: "100%",
     marginBottom: 16,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
-    marginHorizontal: 20,
   },
   courseImage: {
     width: "100%",
-    height: 180,
+    height: 200,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
