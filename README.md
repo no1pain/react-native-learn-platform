@@ -44,7 +44,7 @@ Whether you're a beginner looking to learn new skills or an expert wanting to de
 1. Clone the repository:
 
 ```bash
-git clone [your-repo-url]
+git clone https://github.com/no1pain/react-native-learn-platform.git
 cd react-native-learn-platform
 ```
 
