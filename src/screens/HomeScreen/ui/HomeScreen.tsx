@@ -55,11 +55,10 @@ const HomeScreen = () => {
         style: "destructive",
         onPress: async () => {
           try {
-            await signOut();
-            await AsyncStorage.removeItem("userToken");
-            logout();
+            await logout();
           } catch (error) {
             console.error("Logout error:", error);
+            Alert.alert("Error", "Failed to logout. Please try again.");
           }
         },
       },

@@ -11,12 +11,19 @@ import LoginWithYourAccount from "@/screens/LoginWithYourAccount/ui/LoginWithYou
 import CoursesScreen from "../screens/CoursesScreen/ui/CoursesScreen";
 import SearchScreen from "../screens/SearchScreen/ui/SearchScreen";
 import CourseDetailScreen from "../screens/CourseDetailScreen/ui/CourseDetailScreen";
+import ProfileSetupScreen from "@/screens/ProfileSetupScreen/ProfileSetupScreen";
 import { useAuth } from "@/shared/hooks/useAuth";
+
+type RootStackParamList = {
+  Auth: undefined;
+  Main: undefined;
+};
 
 type AuthStackParamList = {
   Login: undefined;
   LoginWithYourAccount: undefined;
   SignUp: undefined;
+  ProfileSetup: undefined;
 };
 
 type MainStackParamList = {
@@ -29,6 +36,7 @@ type MainStackParamList = {
   CourseDetail: { courseId: string };
 };
 
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const MainStack = createNativeStackNavigator<MainStackParamList>();
 
@@ -44,6 +52,7 @@ const AuthNavigator = () => {
         component={LoginWithYourAccount}
       />
       <AuthStack.Screen name="SignUp" component={SignUp} />
+      <AuthStack.Screen name="ProfileSetup" component={ProfileSetupScreen} />
     </AuthStack.Navigator>
   );
 };
@@ -73,7 +82,13 @@ const AppNavigator: React.FC = () => {
 
   return (
     <NavigationContainer>
-      {isAuthenticated ? <MainNavigator /> : <AuthNavigator />}
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
+        {isAuthenticated ? (
+          <RootStack.Screen name="Main" component={MainNavigator} />
+        ) : (
+          <RootStack.Screen name="Auth" component={AuthNavigator} />
+        )}
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 };

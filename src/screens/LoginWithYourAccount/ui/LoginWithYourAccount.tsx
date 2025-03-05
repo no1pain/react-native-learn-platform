@@ -10,12 +10,19 @@ import {
 import { ArrowRight, Eye, EyeOff, User, Lock } from "lucide-react-native";
 import styles from "./LoginWithYourAccountStyles";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useAuth } from "@/shared/hooks/useAuth";
-import { signInWithEmail } from "@/lib/supabase";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { authService } from "@/services/auth.service";
+
+type RootStackParamList = {
+  SignUp: undefined;
+  LoginMain: undefined;
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const LoginWithYourAccount = () => {
-  const navigation: any = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const { setIsAuthenticated } = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
@@ -30,17 +37,9 @@ const LoginWithYourAccount = () => {
 
     setLoading(true);
     try {
-      const { data, error } = await signInWithEmail(email, password);
-      if (error) throw error;
-
-      // Store the session token
-      if (data?.session?.access_token) {
-        await AsyncStorage.setItem("userToken", data.session.access_token);
-        setIsAuthenticated(true);
-      } else {
-        throw new Error("No session token received");
-      }
+      await authService.login(email, password);
     } catch (error: any) {
+      console.error("Login error:", error);
       Alert.alert("Error", error.message || "Failed to sign in");
     } finally {
       setLoading(false);

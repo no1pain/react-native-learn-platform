@@ -39,12 +39,19 @@ const SignUp = () => {
       const { data, error } = await signUpWithEmail(email, password);
       if (error) throw error;
 
-      // Store the session token
-      if (data?.session?.access_token) {
+      if (data?.session) {
+        // Store the session token
         await AsyncStorage.setItem("userToken", data.session.access_token);
         setIsAuthenticated(true);
+        navigation.navigate("ProfileSetup");
+      } else if (data?.user) {
+        // Email confirmation required
+        Alert.alert(
+          "Verification Required",
+          "Please check your email for a verification link before continuing."
+        );
       } else {
-        throw new Error("No session token received");
+        throw new Error("Registration failed");
       }
     } catch (error: any) {
       Alert.alert("Error", error.message || "Failed to sign up");
