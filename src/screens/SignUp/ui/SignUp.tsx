@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import { ArrowRight, Eye, EyeOff, Mail, Lock } from "lucide-react-native";
 import styles from "./SignUpStyles";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "@/shared/hooks/useAuth";
+import { signUpWithEmail } from "@/lib/supabase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignUp = () => {
   const navigation: any = useNavigation();
@@ -12,9 +21,43 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSignUp = async () => {
-    navigation.navigate("Home");
+    if (!email || !password) {
+      Alert.alert("Error", "Please fill in all fields");
+      return;
+    }
+
+    if (!termsAccepted) {
+      Alert.alert("Error", "Please accept the terms and conditions");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { data, error } = await signUpWithEmail(email, password);
+      if (error) throw error;
+
+      if (data?.session) {
+        // Store the session token
+        await AsyncStorage.setItem("userToken", data.session.access_token);
+        setIsAuthenticated(true);
+        navigation.navigate("ProfileSetup");
+      } else if (data?.user) {
+        // Email confirmation required
+        Alert.alert(
+          "Verification Required",
+          "Please check your email for a verification link before continuing."
+        );
+      } else {
+        throw new Error("Registration failed");
+      }
+    } catch (error: any) {
+      Alert.alert("Error", error.message || "Failed to sign up");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleTogglePasswordVisibility = () => {
@@ -27,8 +70,7 @@ const SignUp = () => {
 
   const handleSocialLogin = (provider: string) => {
     // TODO: Implement social login logic here
-    console.log(`Logging in with ${provider}`);
-    navigation.navigate("Home");
+    Alert.alert("Coming Soon", `${provider} login will be available soon!`);
   };
 
   return (
@@ -88,8 +130,14 @@ const SignUp = () => {
         <Text style={styles.termsText}>Agree to Terms & Conditions</Text>
       </View>
 
-      <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
-        <Text style={styles.signUpText}>Sign Up</Text>
+      <TouchableOpacity
+        style={[styles.signUpButton, loading && { opacity: 0.7 }]}
+        onPress={handleSignUp}
+        disabled={loading}
+      >
+        <Text style={styles.signUpText}>
+          {loading ? "Signing up..." : "Sign Up"}
+        </Text>
         <ArrowRight size={24} color="white" />
       </TouchableOpacity>
 
@@ -98,7 +146,7 @@ const SignUp = () => {
       <View style={styles.socialContainer}>
         <TouchableOpacity
           style={styles.socialButton}
-          onPress={() => handleSocialLogin("google")}
+          onPress={() => handleSocialLogin("Google")}
         >
           <View style={styles.socialIconContainer}>
             <Image
@@ -109,7 +157,7 @@ const SignUp = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.socialButton}
-          onPress={() => handleSocialLogin("apple")}
+          onPress={() => handleSocialLogin("Apple")}
         >
           <View style={styles.socialIconContainer}>
             <Image

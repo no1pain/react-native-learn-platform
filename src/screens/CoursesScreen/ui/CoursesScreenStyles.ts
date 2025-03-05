@@ -37,11 +37,12 @@ export const styles = StyleSheet.create({
   categoriesContainer: {
     backgroundColor: "#FFFFFF",
     paddingVertical: 8,
+    paddingLeft: 20,
+
     borderBottomWidth: 1,
     borderBottomColor: "#F0F0F0",
   },
   categoriesContent: {
-    paddingHorizontal: 20,
     flexDirection: "row",
     gap: 12,
   },
@@ -50,7 +51,13 @@ export const styles = StyleSheet.create({
     backgroundColor: "#F7F9FC",
   },
   coursesContent: {
+    paddingHorizontal: 20,
     paddingTop: 12,
+    paddingBottom: 24,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 16,
   },
   noResultsContainer: {
     flex: 1,

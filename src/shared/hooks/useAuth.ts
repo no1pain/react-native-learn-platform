@@ -1,35 +1,53 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { authService } from "@/services/auth.service";
 
 export const useAuth = () => {
   const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    const checkAppState = async () => {
-      try {
-        const hasSeenIntro = await AsyncStorage.getItem("hasSeenIntro");
-        const userToken = await AsyncStorage.getItem("userToken");
+  const checkAuthState = useCallback(async () => {
+    try {
+      const hasSeenIntro = await AsyncStorage.getItem("hasSeenIntro");
+      const isAuthed = await authService.checkSession();
 
-        setIsFirstLaunch(hasSeenIntro === null);
-        setIsAuthenticated(!!userToken);
-      } catch (error) {
-        console.error("Error checking app state:", error);
-        setIsAuthenticated(false);
-      }
-    };
-
-    checkAppState();
+      setIsFirstLaunch(hasSeenIntro === null);
+      setIsAuthenticated(isAuthed);
+    } catch (error) {
+      console.error("Error checking auth state:", error);
+      setIsAuthenticated(false);
+    }
   }, []);
 
-  const logout = async () => {
+  useEffect(() => {
+    checkAuthState();
+
+    // Set up auth state change listener
+    const {
+      data: { subscription },
+    } = authService.onAuthStateChange((isAuthed) => {
+      setIsAuthenticated(isAuthed);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [checkAuthState]);
+
+  const logout = useCallback(async () => {
     try {
-      await AsyncStorage.removeItem("userToken");
+      await authService.logout();
       setIsAuthenticated(false);
     } catch (error) {
       console.error("Logout error:", error);
     }
-  };
+  }, []);
 
-  return { isFirstLaunch, isAuthenticated, setIsAuthenticated, logout };
+  return {
+    isFirstLaunch,
+    isAuthenticated,
+    setIsAuthenticated,
+    logout,
+    checkAuthState,
+  };
 };

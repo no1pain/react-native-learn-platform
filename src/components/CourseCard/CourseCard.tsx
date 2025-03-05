@@ -1,8 +1,20 @@
 import React from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Bookmark } from "lucide-react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+  CourseDetail: { courseId: string };
+};
+
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "CourseDetail"
+>;
 
 interface CourseCardProps {
+  id: string;
   category: string;
   title: string;
   price: string;
@@ -10,9 +22,11 @@ interface CourseCardProps {
   students: number;
   image: string;
   isSaved?: boolean;
+  onToggleFavorite?: () => void;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
+  id,
   category,
   title,
   price,
@@ -20,47 +34,59 @@ const CourseCard: React.FC<CourseCardProps> = ({
   students,
   image,
   isSaved,
-}) => (
-  <View style={styles.courseCard}>
-    <Image source={{ uri: image }} style={styles.courseImage} />
-    <View style={styles.courseContent}>
-      <Text style={styles.courseCategory}>{category}</Text>
-      <Text style={styles.courseTitle}>{title}</Text>
-      <Text style={styles.coursePrice}>{price}/-</Text>
-      <View style={styles.courseStats}>
-        <View style={styles.ratingContainer}>
-          <Text style={styles.starIcon}>⭐</Text>
-          <Text style={styles.rating}>{rating}</Text>
+  onToggleFavorite,
+}) => {
+  const navigation = useNavigation<NavigationProp>();
+
+  const handlePress = () => {
+    navigation.navigate("CourseDetail", { courseId: id });
+  };
+
+  return (
+    <TouchableOpacity style={styles.courseCard} onPress={handlePress}>
+      <Image source={{ uri: image }} style={styles.courseImage} />
+      <View style={styles.courseContent}>
+        <Text style={styles.courseCategory}>{category}</Text>
+        <Text style={styles.courseTitle}>{title}</Text>
+        <Text style={styles.coursePrice}>{price}/-</Text>
+        <View style={styles.courseStats}>
+          <View style={styles.ratingContainer}>
+            <Text style={styles.starIcon}>⭐</Text>
+            <Text style={styles.rating}>{rating}</Text>
+          </View>
+          <Text style={styles.divider}>|</Text>
+          <Text style={styles.students}>{students} Std</Text>
         </View>
-        <Text style={styles.divider}>|</Text>
-        <Text style={styles.students}>{students} Std</Text>
       </View>
-    </View>
-    <TouchableOpacity style={styles.bookmarkButton}>
-      <Bookmark
-        size={20}
-        color={isSaved ? "#2B7A78" : "#CCCCCC"}
-        fill={isSaved ? "#2B7A78" : "none"}
-      />
+      <TouchableOpacity
+        style={styles.bookmarkButton}
+        onPress={onToggleFavorite}
+      >
+        <Bookmark
+          size={20}
+          color={isSaved ? "#2B7A78" : "#CCCCCC"}
+          fill={isSaved ? "#2B7A78" : "none"}
+        />
+      </TouchableOpacity>
     </TouchableOpacity>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   courseCard: {
     backgroundColor: "#FFFFFF",
     borderRadius: 16,
+    width: "100%",
     marginBottom: 16,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
-    marginHorizontal: 20,
   },
   courseImage: {
     width: "100%",
-    height: 180,
+    height: 200,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },

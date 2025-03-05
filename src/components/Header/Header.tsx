@@ -49,9 +49,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    paddingHorizontal: 20,
+    paddingLeft: 20,
     paddingTop: 20,
     marginBottom: 20,
+    flex: 1,
   },
   greeting: {
     fontSize: 28,

@@ -1,30 +1,48 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import { ArrowRight, Eye, EyeOff, User, Lock } from "lucide-react-native";
 import styles from "./LoginWithYourAccountStyles";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useAuth } from "@/shared/hooks/useAuth";
+import { authService } from "@/services/auth.service";
+
+type RootStackParamList = {
+  SignUp: undefined;
+  LoginMain: undefined;
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const LoginWithYourAccount = () => {
-  const navigation: any = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const { setIsAuthenticated } = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-    if (!username || !password) {
-      // TODO: Show error message
-      console.error("Please fill in all fields");
+    if (!email || !password) {
+      Alert.alert("Error", "Please fill in all fields");
       return;
     }
 
+    setLoading(true);
     try {
-      // TODO: Implement actual login logic here
-      // For now, just navigate to Home
-      navigation.navigate("Home");
-    } catch (error) {
+      await authService.login(email, password);
+    } catch (error: any) {
       console.error("Login error:", error);
+      Alert.alert("Error", error.message || "Failed to sign in");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,12 +66,13 @@ const LoginWithYourAccount = () => {
       <View style={styles.inputContainer}>
         <User size={20} color="#A0A0A0" style={styles.icon} />
         <TextInput
-          placeholder="Username"
+          placeholder="Email"
           placeholderTextColor="#A0A0A0"
           style={styles.input}
-          value={username}
-          onChangeText={setUsername}
+          value={email}
+          onChangeText={setEmail}
           autoCapitalize="none"
+          keyboardType="email-address"
         />
       </View>
 
@@ -81,8 +100,14 @@ const LoginWithYourAccount = () => {
         <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.signInButton} onPress={handleLogin}>
-        <Text style={styles.signInButtonText}>Sign In</Text>
+      <TouchableOpacity
+        style={[styles.signInButton, loading && { opacity: 0.7 }]}
+        onPress={handleLogin}
+        disabled={loading}
+      >
+        <Text style={styles.signInButtonText}>
+          {loading ? "Signing in..." : "Sign In"}
+        </Text>
         <ArrowRight size={24} color="white" />
       </TouchableOpacity>
 

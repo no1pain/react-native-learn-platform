@@ -126,6 +126,7 @@ const CoursesScreen = () => {
           filteredCourses.map((course) => (
             <CourseCard
               key={course.id}
+              id={course.id}
               category={course.category}
               title={course.title}
               price={course.price}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
-import CardItem from "@/components/CardItem/CardItem";
+import CourseCard from "@/components/CourseCard/CourseCard";
 import coursesData from "@/data/courses.json";
 import categoriesData from "@/data/categories.json";
 
@@ -54,18 +54,19 @@ const CardList: React.FC<CardListProps> = ({ selectedCategory = "all" }) => {
       contentContainerStyle={styles.contentContainer}
     >
       {filteredCourses.map((course) => (
-        <CardItem
-          key={course.id}
-          title={course.title}
-          categoryName={course.category}
-          price={parseInt(course.price)}
-          rating={course.rating}
-          students={course.students}
-          image={course.image}
-          isFavorite={course.isSaved}
-          onPress={() => console.log("Course pressed:", course.id)}
-          onFavoritePress={() => toggleFavorite(course.id)}
-        />
+        <View key={course.id} style={styles.cardWrapper}>
+          <CourseCard
+            id={course.id}
+            title={course.title}
+            category={course.category}
+            price={course.price}
+            rating={course.rating}
+            students={course.students}
+            image={course.image}
+            isSaved={course.isSaved}
+            onToggleFavorite={() => toggleFavorite(course.id)}
+          />
+        </View>
       ))}
     </ScrollView>
   );
@@ -73,11 +74,14 @@ const CardList: React.FC<CardListProps> = ({ selectedCategory = "all" }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
+    flexGrow: 0,
   },
   contentContainer: {
     paddingHorizontal: 20,
-    gap: 12,
+    paddingVertical: 12,
+  },
+  cardWrapper: {
+    marginRight: 16,
   },
 });
 
