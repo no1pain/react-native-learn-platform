@@ -52,4 +52,22 @@ export const styles = StyleSheet.create({
   coursesContent: {
     paddingTop: 12,
   },
+  noResultsContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 40,
+    paddingHorizontal: 20,
+  },
+  noResultsText: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#17252A",
+    marginBottom: 8,
+  },
+  noResultsSubtext: {
+    fontSize: 14,
+    color: "#666666",
+    textAlign: "center",
+  },
 });

@@ -1,30 +1,68 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+import Swiper from "react-native-swiper";
+
+const offers = [
+  {
+    title: "25% OFF*",
+    subtitle: "Today's Special",
+    description: "Get a Discount for Every Course Order only Valid for Today!",
+    backgroundColor: "#4169E1",
+  },
+  {
+    title: "FREE TRIAL",
+    subtitle: "Premium Access",
+    description:
+      "Try any course free for 7 days with full access to all features",
+    backgroundColor: "#2B7A78",
+  },
+  {
+    title: "BUNDLE DEAL",
+    subtitle: "Save Big",
+    description: "Buy 2 courses and get 1 free! Limited time offer",
+    backgroundColor: "#FF6B6B",
+  },
+];
 
 const SpecialOffer = () => {
   return (
-    <View style={styles.specialOffer}>
-      <Text style={styles.offerTitle}>25% OFF*</Text>
-      <Text style={styles.offerSubtitle}>Today's Special</Text>
-      <Text style={styles.offerDescription}>
-        Get a Discount for Every Course Order only Valid for Today.!
-      </Text>
-      <View style={styles.indicator}>
-        <View style={[styles.dot, styles.activeDot]} />
-        <View style={styles.dot} />
-        <View style={styles.dot} />
-      </View>
+    <View style={styles.container}>
+      <Swiper
+        autoplay
+        autoplayTimeout={5}
+        showsPagination={true}
+        dotStyle={styles.dot}
+        activeDotStyle={styles.activeDot}
+        paginationStyle={styles.pagination}
+      >
+        {offers.map((offer, index) => (
+          <View
+            key={index}
+            style={[
+              styles.specialOffer,
+              { backgroundColor: offer.backgroundColor },
+            ]}
+          >
+            <Text style={styles.offerTitle}>{offer.title}</Text>
+            <Text style={styles.offerSubtitle}>{offer.subtitle}</Text>
+            <Text style={styles.offerDescription}>{offer.description}</Text>
+          </View>
+        ))}
+      </Swiper>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    height: 180,
+    marginBottom: 24,
+  },
   specialOffer: {
-    backgroundColor: "#4169E1",
+    flex: 1,
     borderRadius: 16,
     padding: 20,
     marginHorizontal: 20,
-    marginBottom: 24,
   },
   offerTitle: {
     fontSize: 24,
@@ -44,9 +82,8 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     marginBottom: 16,
   },
-  indicator: {
-    flexDirection: "row",
-    gap: 8,
+  pagination: {
+    bottom: 10,
   },
   dot: {
     width: 8,
@@ -54,10 +91,14 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: "#FFFFFF",
     opacity: 0.5,
+    marginHorizontal: 4,
   },
   activeDot: {
-    opacity: 1,
     width: 24,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#FFFFFF",
+    marginHorizontal: 4,
   },
 });
 

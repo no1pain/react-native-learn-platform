@@ -73,11 +73,11 @@ const CardList: React.FC<CardListProps> = ({ selectedCategory = "all" }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 0,
+    marginBottom: 20,
   },
   contentContainer: {
     paddingHorizontal: 20,
-    paddingBottom: 16,
+    gap: 12,
   },
 });
 

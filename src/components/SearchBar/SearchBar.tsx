@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Search, Settings } from "lucide-react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+  Courses: { searchQuery?: string } | undefined;
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Courses">;
 
 const SearchBar = () => {
+  const navigation = useNavigation<NavigationProp>();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigation.navigate("Courses", { searchQuery: searchQuery.trim() });
+      setSearchQuery("");
+    }
+  };
+
   return (
     <View style={styles.searchContainer}>
       <View style={styles.searchBar}>
@@ -11,6 +29,10 @@ const SearchBar = () => {
           placeholder="Search for.."
           style={styles.searchInput}
           placeholderTextColor="#A0A0A0"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          onSubmitEditing={handleSearch}
+          returnKeyType="search"
         />
       </View>
       <TouchableOpacity style={styles.filterButton}>

@@ -3,6 +3,11 @@
     { "id": "all", "title": "All" },
     { "id": "graphic", "title": "Graphic Design" },
     { "id": "3d", "title": "3D Design" },
-    { "id": "arts", "title": "Arts & Humanities" }
+    { "id": "arts", "title": "Arts & Humanities" },
+    { "id": "programming", "title": "Programming" },
+    { "id": "web", "title": "Web Development" },
+    { "id": "business", "title": "Business" },
+    { "id": "marketing", "title": "Marketing" },
+    { "id": "photography", "title": "Photography" }
   ]
 }
