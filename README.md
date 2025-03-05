@@ -2,6 +2,19 @@
 
 A modern mobile application built with React Native and Expo that provides an interactive learning experience. Users can browse courses, track their progress, and engage with educational content.
 
+## 📖 About
+
+Welcome to our Learning Platform - your gateway to knowledge! This platform offers:
+
+- **Free Courses**: Access a wide range of free educational content across various topics
+- **Premium Content**: Unlock premium courses with advanced features and in-depth material
+- **Interactive Learning**: Engage with course materials through quizzes and practical exercises
+- **Progress Tracking**: Monitor your learning journey with detailed progress analytics
+- **Personalized Experience**: Get course recommendations based on your interests and skill level
+- **Community Features**: Connect with other learners and share your experiences
+
+Whether you're a beginner looking to learn new skills or an expert wanting to deepen your knowledge, our platform has something for everyone. Browse through categories like Programming, Design, Business, and more!
+
 ## 🚀 Features
 
 - 📱 Cross-platform (iOS & Android) support
