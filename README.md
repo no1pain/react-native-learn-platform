@@ -35,7 +35,9 @@ Whether you're a beginner looking to learn new skills or an expert wanting to de
 
 ## 📱 Screenshots
 
-[Add your screenshots here]
+- https://ibb.co/B5YgyCbY
+- https:/ibb.co/V02BDBqZ
+- https:/ibb.co/gZWpyYMg
 
 ## 🏗 Installation
 
@@ -75,9 +77,5 @@ npm test
 ## 🤝 Contributing
 
 Feel free to open issues and pull requests!
-
-## 📝 License
-
-MIT
 
 ⭐️ Star this repo if you like it!
