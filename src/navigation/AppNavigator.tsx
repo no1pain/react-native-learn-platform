@@ -10,6 +10,7 @@ import SignUp from "@/screens/SignUp/ui/SignUp";
 import LoginWithYourAccount from "@/screens/LoginWithYourAccount/ui/LoginWithYourAccount";
 import CoursesScreen from "../screens/CoursesScreen/ui/CoursesScreen";
 import SearchScreen from "../screens/SearchScreen/ui/SearchScreen";
+import CourseDetailScreen from "../screens/CourseDetailScreen/ui/CourseDetailScreen";
 
 type RootStackParamList = {
   Login: undefined;
@@ -21,6 +22,7 @@ type RootStackParamList = {
   LoginWithYourAccount: undefined;
   SignUp: undefined;
   Search: undefined;
+  CourseDetail: { courseId: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -45,6 +47,7 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen name="Mentors" component={MentorsScreen} />
         <Stack.Screen name="Courses" component={CoursesScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="CourseDetail" component={CourseDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

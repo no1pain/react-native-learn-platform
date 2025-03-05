@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
-import CardItem from "@/components/CardItem/CardItem";
+import CourseCard from "@/components/CourseCard/CourseCard";
 import coursesData from "@/data/courses.json";
 import categoriesData from "@/data/categories.json";
 
@@ -48,23 +48,20 @@ const CardList: React.FC<CardListProps> = ({ selectedCategory = "all" }) => {
 
   return (
     <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
       {filteredCourses.map((course) => (
-        <CardItem
+        <CourseCard
           key={course.id}
+          id={course.id}
           title={course.title}
-          categoryName={course.category}
-          price={parseInt(course.price)}
+          category={course.category}
+          price={course.price}
           rating={course.rating}
           students={course.students}
           image={course.image}
-          isFavorite={course.isSaved}
-          onPress={() => console.log("Course pressed:", course.id)}
-          onFavoritePress={() => toggleFavorite(course.id)}
+          isSaved={course.isSaved}
         />
       ))}
     </ScrollView>
@@ -73,11 +70,10 @@ const CardList: React.FC<CardListProps> = ({ selectedCategory = "all" }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
+    flex: 1,
   },
   contentContainer: {
-    paddingHorizontal: 20,
-    gap: 12,
+    paddingTop: 12,
   },
 });
 
