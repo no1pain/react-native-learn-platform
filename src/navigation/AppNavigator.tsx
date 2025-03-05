@@ -1,26 +1,50 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "@/screens/HomeScreen/ui/HomeScreen";
-import LoginRoute from "./routes/LoginRoute";
-import { View, ActivityIndicator } from "react-native";
-import NotificationsScreen from "app/(main)/notifications";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Login from "../screens/Login/ui/Login";
+import HomeScreen from "../screens/HomeScreen/ui/HomeScreen";
+import NotificationsScreen from "../screens/NotificationsScreen/ui/NotificationsScreen";
+import CategoriesScreen from "../screens/CategoriesScreen/ui/CategoriesScreen";
+import MentorsScreen from "../screens/MentorsScreen/ui/MentorsScreen";
+import SignUp from "@/screens/SignUp/ui/SignUp";
+import LoginWithYourAccount from "@/screens/LoginWithYourAccount/ui/LoginWithYourAccount";
+import CoursesScreen from "../screens/CoursesScreen/ui/CoursesScreen";
+import SearchScreen from "../screens/SearchScreen/ui/SearchScreen";
 
 type RootStackParamList = {
   Login: undefined;
   Home: undefined;
   Notifications: undefined;
+  Categories: undefined;
+  Mentors: undefined;
+  Courses: undefined;
+  LoginWithYourAccount: undefined;
+  SignUp: undefined;
+  Search: undefined;
 };
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginRoute} />
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName="Login"
+      >
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen
+          name="LoginWithYourAccount"
+          component={LoginWithYourAccount}
+        />
+
+        <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Notifications" component={NotificationsScreen} />
+        <Stack.Screen name="Categories" component={CategoriesScreen} />
+        <Stack.Screen name="Mentors" component={MentorsScreen} />
+        <Stack.Screen name="Courses" component={CoursesScreen} />
+        <Stack.Screen name="Search" component={SearchScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

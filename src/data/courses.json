@@ -1,59 +1,164 @@
 {
   "courses": [
     {
-      "id": "gd-advanced",
+      "id": "1",
+      "category": "Graphic Design",
       "title": "Graphic Design Advanced",
-      "category": "graphic-design",
-      "categoryName": "Graphic Design",
-      "price": 850,
+      "price": "7058",
       "rating": 4.2,
       "students": 7830,
       "image": "https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-      "isFavorite": false
+      "isSaved": true
     },
     {
-      "id": "digital-advertising",
-      "title": "Digital Advertising Mastery",
-      "category": "marketing",
-      "categoryName": "Marketing",
-      "price": 400,
-      "rating": 4.5,
-      "students": 5240,
+      "id": "2",
+      "category": "Graphic Design",
+      "title": "Advertisement Design",
+      "price": "800",
+      "rating": 3.9,
+      "students": 12680,
       "image": "https://images.unsplash.com/photo-1557838923-2985c318be48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-      "isFavorite": false
+      "isSaved": false
     },
     {
-      "id": "3d-modeling",
-      "title": "3D Modeling Fundamentals",
-      "category": "3d-design",
-      "categoryName": "3D Design",
-      "price": 650,
-      "rating": 4.8,
-      "students": 3420,
+      "id": "3",
+      "category": "Programming",
+      "title": "Python for Beginners",
+      "price": "599",
+      "rating": 4.2,
+      "students": 990,
       "image": "https://images.unsplash.com/photo-1617791160505-6f00504e3519?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-      "isFavorite": false
+      "isSaved": true
     },
     {
-      "id": "ui-ux-design",
-      "title": "UI/UX Design Principles",
-      "category": "graphic-design",
-      "categoryName": "Graphic Design",
-      "price": 750,
+      "id": "4",
+      "category": "Web Development",
+      "title": "Web Developer Bootcamp",
+      "price": "499",
+      "rating": 4.9,
+      "students": 14580,
+      "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": true
+    },
+    {
+      "id": "5",
+      "category": "3D Design",
+      "title": "3D Modeling Fundamentals",
+      "price": "899",
+      "rating": 4.5,
+      "students": 3240,
+      "image": "https://images.unsplash.com/photo-1617396900799-f4ec2b43c7ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": false
+    },
+    {
+      "id": "6",
+      "category": "3D Design",
+      "title": "Character Design in Blender",
+      "price": "1299",
+      "rating": 4.7,
+      "students": 2180,
+      "image": "https://images.unsplash.com/photo-1615840287214-7ff58936c4cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": false
+    },
+    {
+      "id": "7",
+      "category": "Arts & Humanities",
+      "title": "Art History Masterclass",
+      "price": "449",
+      "rating": 4.3,
+      "students": 5670,
+      "image": "https://images.unsplash.com/photo-1580136579312-94651dfd596d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": false
+    },
+    {
+      "id": "8",
+      "category": "Arts & Humanities",
+      "title": "Creative Writing Workshop",
+      "price": "349",
       "rating": 4.6,
-      "students": 9150,
-      "image": "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-      "isFavorite": false
+      "students": 8920,
+      "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": true
     },
     {
-      "id": "motion-graphics",
-      "title": "Motion Graphics & Animation",
-      "category": "graphic-design",
-      "categoryName": "Graphic Design",
-      "price": 950,
+      "id": "9",
+      "category": "Programming",
+      "title": "JavaScript Mastery",
+      "price": "799",
+      "rating": 4.8,
+      "students": 11250,
+      "image": "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": false
+    },
+    {
+      "id": "10",
+      "category": "Web Development",
+      "title": "React Native Development",
+      "price": "899",
+      "rating": 4.7,
+      "students": 6340,
+      "image": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": false
+    },
+    {
+      "id": "11",
+      "category": "Business",
+      "title": "Startup Fundamentals",
+      "price": "599",
       "rating": 4.4,
-      "students": 4280,
-      "image": "https://images.unsplash.com/photo-1551269901-5c5e14c25df7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-      "isFavorite": false
+      "students": 9870,
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": false
+    },
+    {
+      "id": "12",
+      "category": "Business",
+      "title": "Digital Marketing Strategy",
+      "price": "699",
+      "rating": 4.6,
+      "students": 7450,
+      "image": "https://images.unsplash.com/photo-1533750349088-cd871a92f312?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": true
+    },
+    {
+      "id": "13",
+      "category": "Marketing",
+      "title": "Social Media Marketing",
+      "price": "549",
+      "rating": 4.3,
+      "students": 12340,
+      "image": "https://images.unsplash.com/photo-1611926653458-09294b3142bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": false
+    },
+    {
+      "id": "14",
+      "category": "Marketing",
+      "title": "Content Marketing Mastery",
+      "price": "649",
+      "rating": 4.5,
+      "students": 8760,
+      "image": "https://images.unsplash.com/photo-1542744094-3a31f272c490?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": true
+    },
+    {
+      "id": "15",
+      "category": "Photography",
+      "title": "Digital Photography Basics",
+      "price": "449",
+      "rating": 4.4,
+      "students": 6890,
+      "image": "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": false
+    },
+    {
+      "id": "16",
+      "category": "Photography",
+      "title": "Advanced Photo Editing",
+      "price": "599",
+      "rating": 4.6,
+      "students": 5430,
+      "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+      "isSaved": true
     }
   ]
 }

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,13 +7,32 @@ import {
   Platform,
   SafeAreaView,
 } from "react-native";
-import notificationsData from "../../../data/notifications.json";
-import CardList from "../../../components/CardList/CardList";
-import Header from "../../../components/Header/Header";
-import SearchBar from "../../../components/SearchBar/SearchBar";
-import SpecialOffer from "../../../components/SpecialOffer/SpecialOffer";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import notificationsData from "@/data/notifications.json";
+import CardList from "@/components/CardList/CardList";
+import Header from "@/components/Header/Header";
+import SearchBar from "@/components/SearchBar/SearchBar";
+import SpecialOffer from "@/components/SpecialOffer/SpecialOffer";
+import SectionHeader from "@/components/SectionHeader/SectionHeader";
+import CategoryList from "@/components/CategoryList/CategoryList";
+import MentorList from "@/components/MentorList/MentorList";
+
+type RootStackParamList = {
+  Login: undefined;
+  Home: undefined;
+  Notifications: undefined;
+  Categories: undefined;
+  Mentors: undefined;
+  Courses: undefined;
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const HomeScreen = () => {
+  const navigation = useNavigation<NavigationProp>();
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
   const unreadNotificationsCount = useMemo(() => {
     return notificationsData.notifications.filter((n) => !n.isRead).length;
   }, []);
@@ -24,8 +43,30 @@ const HomeScreen = () => {
         <StatusBar barStyle="dark-content" />
         <Header unreadNotificationsCount={unreadNotificationsCount} />
         <SearchBar />
+
         <SpecialOffer />
-        <CardList />
+        <SectionHeader
+          title="Categories"
+          onSeeAllPress={() => navigation.navigate("Categories")}
+        />
+        <CategoryList
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+        />
+        <SectionHeader
+          title="Popular Courses"
+          onSeeAllPress={() => navigation.navigate("Courses")}
+        />
+        <CardList
+          selectedCategory={
+            selectedCategory === "all" ? undefined : selectedCategory
+          }
+        />
+        <SectionHeader
+          title="Top Mentor"
+          onSeeAllPress={() => navigation.navigate("Mentors")}
+        />
+        <MentorList />
       </ScrollView>
     </SafeAreaView>
   );

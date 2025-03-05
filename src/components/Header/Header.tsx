@@ -21,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ unreadNotificationsCount }) => {
   return (
     <View style={styles.header}>
       <View>
-        <Text style={styles.greeting}>Hi, ALEX</Text>
+        <Text style={styles.greeting}>Hi, user.name</Text>
         <Text style={styles.subtitle}>
           What Would you like to learn Today?{"\n"}
           Search Below.
