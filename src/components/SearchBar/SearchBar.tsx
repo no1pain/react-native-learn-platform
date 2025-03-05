@@ -6,9 +6,10 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type RootStackParamList = {
   Courses: { searchQuery?: string } | undefined;
+  Settings: undefined;
 };
 
-type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Courses">;
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const SearchBar = () => {
   const navigation = useNavigation<NavigationProp>();
@@ -19,6 +20,10 @@ const SearchBar = () => {
       navigation.navigate("Courses", { searchQuery: searchQuery.trim() });
       setSearchQuery("");
     }
+  };
+
+  const handleSettingsPress = () => {
+    navigation.navigate("Settings");
   };
 
   return (
@@ -35,7 +40,10 @@ const SearchBar = () => {
           returnKeyType="search"
         />
       </View>
-      <TouchableOpacity style={styles.filterButton}>
+      <TouchableOpacity
+        style={styles.filterButton}
+        onPress={handleSettingsPress}
+      >
         <Settings size={20} color="#FFFFFF" />
       </TouchableOpacity>
     </View>

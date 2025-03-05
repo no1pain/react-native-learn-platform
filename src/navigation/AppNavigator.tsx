@@ -11,8 +11,10 @@ import LoginWithYourAccount from "@/screens/LoginWithYourAccount/ui/LoginWithYou
 import CoursesScreen from "../screens/CoursesScreen/ui/CoursesScreen";
 import SearchScreen from "../screens/SearchScreen/ui/SearchScreen";
 import CourseDetailScreen from "../screens/CourseDetailScreen/ui/CourseDetailScreen";
-import ProfileSetupScreen from "@/screens/ProfileSetupScreen/ProfileSetupScreen";
 import { useAuth } from "@/shared/hooks/useAuth";
+import MyCoursesScreen from "../screens/MyCoursesScreen/ui/MyCoursesScreen";
+import ProfileScreen from "../screens/ProfileScreen/ProfileScreen";
+import SettingsScreen from "../screens/SettingsScreen/ui/SettingsScreen";
 
 type RootStackParamList = {
   Auth: undefined;
@@ -23,17 +25,19 @@ type AuthStackParamList = {
   Login: undefined;
   LoginWithYourAccount: undefined;
   SignUp: undefined;
-  ProfileSetup: undefined;
 };
 
 type MainStackParamList = {
   Home: undefined;
+  MyCourses: undefined;
   Notifications: undefined;
   Categories: undefined;
   Mentors: undefined;
   Courses: undefined;
   Search: undefined;
   CourseDetail: { courseId: string };
+  Profile: undefined;
+  Settings: undefined;
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -52,7 +56,6 @@ const AuthNavigator = () => {
         component={LoginWithYourAccount}
       />
       <AuthStack.Screen name="SignUp" component={SignUp} />
-      <AuthStack.Screen name="ProfileSetup" component={ProfileSetupScreen} />
     </AuthStack.Navigator>
   );
 };
@@ -67,12 +70,15 @@ const MainNavigator = () => {
       initialRouteName="Home"
     >
       <MainStack.Screen name="Home" component={HomeScreen} />
+      <MainStack.Screen name="MyCourses" component={MyCoursesScreen} />
       <MainStack.Screen name="Notifications" component={NotificationsScreen} />
       <MainStack.Screen name="Categories" component={CategoriesScreen} />
       <MainStack.Screen name="Mentors" component={MentorsScreen} />
       <MainStack.Screen name="Courses" component={CoursesScreen} />
       <MainStack.Screen name="Search" component={SearchScreen} />
       <MainStack.Screen name="CourseDetail" component={CourseDetailScreen} />
+      <MainStack.Screen name="Profile" component={ProfileScreen} />
+      <MainStack.Screen name="Settings" component={SettingsScreen} />
     </MainStack.Navigator>
   );
 };
@@ -83,10 +89,10 @@ const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
-        {isAuthenticated ? (
-          <RootStack.Screen name="Main" component={MainNavigator} />
-        ) : (
+        {!isAuthenticated ? (
           <RootStack.Screen name="Auth" component={AuthNavigator} />
+        ) : (
+          <RootStack.Screen name="Main" component={MainNavigator} />
         )}
       </RootStack.Navigator>
     </NavigationContainer>

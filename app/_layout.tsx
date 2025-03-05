@@ -7,12 +7,10 @@ export const unstable_settings = {
   initialRouteName: "(main)",
 };
 
-// Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   useEffect(() => {
-    // Hide splash screen after resources are loaded
     SplashScreen.hideAsync();
   }, []);
 

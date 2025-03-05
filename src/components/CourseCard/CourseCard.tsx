@@ -23,6 +23,7 @@ interface CourseCardProps {
   image: string;
   isSaved?: boolean;
   onToggleFavorite?: () => void;
+  onCoursePress?: () => void;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
@@ -35,11 +36,16 @@ const CourseCard: React.FC<CourseCardProps> = ({
   image,
   isSaved,
   onToggleFavorite,
+  onCoursePress,
 }) => {
   const navigation = useNavigation<NavigationProp>();
 
   const handlePress = () => {
-    navigation.navigate("CourseDetail", { courseId: id });
+    if (onCoursePress) {
+      onCoursePress();
+    } else {
+      navigation.navigate("CourseDetail", { courseId: id });
+    }
   };
 
   return (
@@ -48,7 +54,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
       <View style={styles.courseContent}>
         <Text style={styles.courseCategory}>{category}</Text>
         <Text style={styles.courseTitle}>{title}</Text>
-        <Text style={styles.coursePrice}>{price}/-</Text>
+        <Text style={styles.coursePrice}>${price}</Text>
         <View style={styles.courseStats}>
           <View style={styles.ratingContainer}>
             <Text style={styles.starIcon}>⭐</Text>

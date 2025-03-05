@@ -1,31 +1,28 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Bell } from "lucide-react-native";
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
-type RootStackParamList = {
-  Home: undefined;
-  Notifications: undefined;
-};
-
-type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 interface HeaderProps {
   unreadNotificationsCount: number;
 }
 
 const Header: React.FC<HeaderProps> = ({ unreadNotificationsCount }) => {
-  const navigation = useNavigation<NavigationProp>();
+  const navigation = useNavigation<any>();
+  const route = useRoute();
+
+  const isHomePage = route.name === "Home";
 
   return (
     <View style={styles.header}>
       <View>
-        <Text style={styles.greeting}>Hi, user.name</Text>
-        <Text style={styles.subtitle}>
-          What Would you like to learn Today?{"\n"}
-          Search Below.
-        </Text>
+        <Text style={styles.greeting}>Hi, Oleksandr!</Text>
+        {isHomePage && (
+          <Text style={styles.subtitle}>
+            What Would you like to learn Today?{"\n"}
+            Search Below.
+          </Text>
+        )}
       </View>
       <TouchableOpacity
         style={styles.notificationButton}

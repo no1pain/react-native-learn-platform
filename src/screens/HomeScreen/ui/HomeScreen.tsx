@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Alert,
+  Text,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -21,8 +22,7 @@ import SectionHeader from "@/components/SectionHeader/SectionHeader";
 import CategoryList from "@/components/CategoryList/CategoryList";
 import MentorList from "@/components/MentorList/MentorList";
 import { useAuth } from "@/shared/hooks/useAuth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { signOut } from "@/lib/supabase";
+import ScreenWithFooter from "@/shared/ui/ScreenWithFooter";
 
 type RootStackParamList = {
   Login: undefined;
@@ -31,6 +31,7 @@ type RootStackParamList = {
   Categories: undefined;
   Mentors: undefined;
   Courses: undefined;
+  CourseDetail: { courseId: string };
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -43,6 +44,10 @@ const HomeScreen = () => {
   const unreadNotificationsCount = useMemo(() => {
     return notificationsData.notifications.filter((n) => !n.isRead).length;
   }, []);
+
+  const handleCoursePress = (courseId: string) => {
+    navigation.navigate("CourseDetail", { courseId });
+  };
 
   const handleLogout = async () => {
     Alert.alert("Logout", "Are you sure you want to logout?", [
@@ -66,12 +71,13 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView style={styles.container}>
+    <ScreenWithFooter activeScreen="Home">
+      <ScrollView style={styles.scrollView}>
         <StatusBar barStyle="dark-content" />
         <View style={styles.headerContainer}>
           <Header unreadNotificationsCount={unreadNotificationsCount} />
         </View>
+
         <SearchBar />
         <SpecialOffer />
         <SectionHeader
@@ -90,17 +96,15 @@ const HomeScreen = () => {
           selectedCategory={
             selectedCategory === "all" ? undefined : selectedCategory
           }
+          onCoursePress={handleCoursePress}
         />
         <SectionHeader
           title="Top Mentor"
           onSeeAllPress={() => navigation.navigate("Mentors")}
         />
         <MentorList />
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <LogOut size={24} color="#FF3B30" />
-        </TouchableOpacity>
       </ScrollView>
-    </SafeAreaView>
+    </ScreenWithFooter>
   );
 };
 
@@ -123,6 +127,15 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     padding: 8,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#666666",
+    lineHeight: 22,
+  },
+  scrollView: {
+    flex: 1,
+    backgroundColor: "#F7F9FC",
   },
 });
 

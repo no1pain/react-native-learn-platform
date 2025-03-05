@@ -3,6 +3,8 @@ import { useRoute } from "@react-navigation/native";
 import CourseItem from "@/components/CourseItem/CourseItem";
 import coursesData from "@/data/courses.json";
 import mentorsData from "@/data/mentors.json";
+import { Text, View, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 interface RouteParams {
   courseId: string;
@@ -11,10 +13,38 @@ interface RouteParams {
 const CourseDetailScreen = () => {
   const route = useRoute();
   const params = route.params as RouteParams;
+  const navigation = useNavigation();
+
+  console.log("CourseDetailScreen - Route params:", params);
+  console.log("CourseDetailScreen - CourseId:", params?.courseId);
+  console.log(
+    "CourseDetailScreen - Available courses:",
+    coursesData.courses.map((c) => c.id)
+  );
 
   const courseData = useMemo(() => {
-    const course = coursesData.courses.find((c) => c.id === params.courseId);
-    if (!course) return null;
+    if (!params?.courseId) {
+      console.error("No courseId provided in route params");
+      return null;
+    }
+
+    // First try to find the course by exact ID match
+    let course = coursesData.courses.find((c) => c.id === params.courseId);
+
+    // If not found, try to find by title (converted to kebab-case)
+    if (!course) {
+      console.log("Course not found by ID, trying to find by title");
+      course = coursesData.courses.find(
+        (c) => c.title.toLowerCase().replace(/\s+/g, "-") === params.courseId
+      );
+    }
+
+    if (!course) {
+      console.error(`Course with id ${params.courseId} not found`);
+      return null;
+    }
+
+    console.log("CourseDetailScreen - Found course:", course);
 
     const mentorIndex = (parseInt(course.id) - 1) % mentorsData.mentors.length;
     const mentor = mentorsData.mentors[mentorIndex];
@@ -30,6 +60,7 @@ const CourseDetailScreen = () => {
       duration: `${hours} Hours`,
       price: course.price,
       image: course.image,
+      id: course.id,
       description: `${
         course.category
       } is a popular profession that offers exciting career opportunities. This comprehensive course will teach you everything you need to know about ${course.title.toLowerCase()}. Join thousands of successful students who have transformed their careers through this course.`,
@@ -78,7 +109,36 @@ const CourseDetailScreen = () => {
   }, [params.courseId]);
 
   if (!courseData) {
-    return null;
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 20,
+        }}
+      >
+        <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
+          Course Not Found
+        </Text>
+        <Text style={{ textAlign: "center" }}>
+          The course you're looking for could not be found. It may have been
+          removed or the ID is incorrect.
+        </Text>
+        <TouchableOpacity
+          style={{
+            marginTop: 20,
+            backgroundColor: "#2B7A78",
+            paddingVertical: 12,
+            paddingHorizontal: 20,
+            borderRadius: 8,
+          }}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={{ color: "white", fontWeight: "bold" }}>Go Back</Text>
+        </TouchableOpacity>
+      </View>
+    );
   }
 
   return <CourseItem {...courseData} />;

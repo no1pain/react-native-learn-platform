@@ -73,7 +73,7 @@ const MentorList: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
+    marginBottom: 70,
   },
   scrollContent: {
     paddingHorizontal: 20,

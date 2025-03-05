@@ -17,6 +17,8 @@ import {
   BookOpen,
 } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useUserCourses, UserCourse } from "@/context/UserCoursesContext";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 interface Review {
   id: string;
@@ -49,6 +51,7 @@ interface CourseItemProps {
   };
   features: string[];
   reviews: Review[];
+  id?: string;
 }
 
 const CourseItem: React.FC<CourseItemProps> = ({
@@ -63,10 +66,37 @@ const CourseItem: React.FC<CourseItemProps> = ({
   instructor,
   features,
   reviews,
+  id,
 }) => {
-  const navigation = useNavigation();
-  const [activeTab, setActiveTab] = useState<"about" | "curriculum">("about");
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const [activeTab, setActiveTab] = useState<
+    "about" | "curriculum" | "reviews"
+  >("about");
   const [isSaved, setIsSaved] = useState(false);
+  const { enrollCourse, isEnrolled, removeCourse } = useUserCourses();
+
+  // Use provided id or generate one from title
+  const courseId = id || title.toLowerCase().replace(/\s+/g, "-");
+  const alreadyEnrolled = isEnrolled(courseId);
+
+  const handleEnroll = async () => {
+    if (alreadyEnrolled) {
+      await removeCourse(courseId);
+    } else {
+      const newCourse: UserCourse = {
+        id: id || courseId,
+        title,
+        category,
+        image,
+        rating,
+        duration,
+        completed: false,
+      };
+      await enrollCourse(newCourse);
+      // Navigate to My Courses screen after enrolling
+      navigation.navigate("MyCourses");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -108,7 +138,7 @@ const CourseItem: React.FC<CourseItemProps> = ({
             <Text style={styles.metadataText}>📚 {lessons} Class</Text>
             <Text style={styles.metadataText}>⏰ {duration}</Text>
           </View>
-          <Text style={styles.price}>{price}/-</Text>
+          <Text style={styles.price}>${price}</Text>
         </View>
 
         {/* Tabs */}
@@ -243,8 +273,10 @@ const CourseItem: React.FC<CourseItemProps> = ({
 
       {/* Enroll Button */}
       <View style={styles.enrollContainer}>
-        <TouchableOpacity style={styles.enrollButton}>
-          <Text style={styles.enrollButtonText}>Enroll Course - {price}/-</Text>
+        <TouchableOpacity style={styles.enrollButton} onPress={handleEnroll}>
+          <Text style={styles.enrollButtonText}>
+            {alreadyEnrolled ? "Remove Course" : `Enroll Course - $${price}`}
+          </Text>
           <ArrowLeft
             size={20}
             color="#FFFFFF"

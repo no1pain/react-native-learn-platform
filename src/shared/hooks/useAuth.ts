@@ -1,10 +1,12 @@
 import { useEffect, useState, useCallback } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { authService } from "@/services/auth.service";
+import { supabase } from "@/lib/supabase";
 
 export const useAuth = () => {
   const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
   const checkAuthState = useCallback(async () => {
     try {
@@ -13,20 +15,44 @@ export const useAuth = () => {
 
       setIsFirstLaunch(hasSeenIntro === null);
       setIsAuthenticated(isAuthed);
+
+      // If authenticated, get the current user
+      if (isAuthed) {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (user) {
+          setUserId(user.id);
+        }
+      } else {
+        setUserId(null);
+      }
     } catch (error) {
       console.error("Error checking auth state:", error);
       setIsAuthenticated(false);
+      setUserId(null);
     }
   }, []);
 
   useEffect(() => {
     checkAuthState();
 
-    // Set up auth state change listener
     const {
       data: { subscription },
-    } = authService.onAuthStateChange((isAuthed) => {
+    } = authService.onAuthStateChange(async (isAuthed) => {
       setIsAuthenticated(isAuthed);
+
+      // Get user ID when auth state changes
+      if (isAuthed) {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (user) {
+          setUserId(user.id);
+        }
+      } else {
+        setUserId(null);
+      }
     });
 
     return () => {
@@ -38,6 +64,7 @@ export const useAuth = () => {
     try {
       await authService.logout();
       setIsAuthenticated(false);
+      setUserId(null);
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -46,6 +73,7 @@ export const useAuth = () => {
   return {
     isFirstLaunch,
     isAuthenticated,
+    userId,
     setIsAuthenticated,
     logout,
     checkAuthState,

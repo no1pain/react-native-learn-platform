@@ -26,8 +26,8 @@ const LoginWithYourAccount = () => {
   const navigation = useNavigation<NavigationProp>();
   const { setIsAuthenticated } = useAuth();
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("fe.oleksandr.kazan@gmail.com");
+  const [password, setPassword] = useState("admin");
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {

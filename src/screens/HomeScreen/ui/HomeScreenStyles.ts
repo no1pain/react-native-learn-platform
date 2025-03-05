@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform, StatusBar } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
@@ -17,5 +17,11 @@ export const styles = StyleSheet.create({
   },
   logoutText: {
     fontSize: 16,
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#F7F9FC",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingBottom: 20,
   },
 });

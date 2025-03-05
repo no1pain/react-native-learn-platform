@@ -78,7 +78,7 @@ const CardItem: React.FC<CardItemProps> = ({
         </Text>
 
         <View style={styles.details}>
-          <Text style={styles.price}>{price}/-</Text>
+          <Text style={styles.price}>${price}</Text>
           <View style={styles.ratingContainer}>
             <Star size={16} color="#FFD700" fill="#FFD700" />
             <Text style={styles.rating}>{rating}</Text>

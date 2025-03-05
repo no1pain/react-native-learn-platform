@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 20,
     paddingRight: 40,
-    gap: 12,
+    gap: 2,
     flexDirection: "row",
     alignItems: "center",
   },

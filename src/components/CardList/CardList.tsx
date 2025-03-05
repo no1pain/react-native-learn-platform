@@ -1,8 +1,19 @@
 import React, { useState } from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import CourseCard from "@/components/CourseCard/CourseCard";
 import coursesData from "@/data/courses.json";
 import categoriesData from "@/data/categories.json";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+  CourseDetail: { courseId: string };
+};
+
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "CourseDetail"
+>;
 
 interface Course {
   id: string;
@@ -17,11 +28,16 @@ interface Course {
 
 interface CardListProps {
   selectedCategory?: string;
+  onCoursePress?: (courseId: string) => void;
 }
 
-const CardList: React.FC<CardListProps> = ({ selectedCategory = "all" }) => {
+const CardList: React.FC<CardListProps> = ({
+  selectedCategory = "all",
+  onCoursePress,
+}) => {
   const [courses, setCourses] = useState<Course[]>(coursesData.courses);
   const { categories } = categoriesData;
+  const navigation = useNavigation<NavigationProp>();
 
   const toggleFavorite = (courseId: string) => {
     setCourses((prevCourses) =>
@@ -31,6 +47,14 @@ const CardList: React.FC<CardListProps> = ({ selectedCategory = "all" }) => {
           : course
       )
     );
+  };
+
+  const handleCoursePress = (courseId: string) => {
+    if (onCoursePress) {
+      onCoursePress(courseId);
+    } else {
+      navigation.navigate("CourseDetail", { courseId });
+    }
   };
 
   const filteredCourses =
@@ -65,6 +89,7 @@ const CardList: React.FC<CardListProps> = ({ selectedCategory = "all" }) => {
             image={course.image}
             isSaved={course.isSaved}
             onToggleFavorite={() => toggleFavorite(course.id)}
+            onCoursePress={() => handleCoursePress(course.id)}
           />
         </View>
       ))}
