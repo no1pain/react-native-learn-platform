@@ -1,50 +1,70 @@
-# Welcome to your Expo app 👋
+# React Native Learning Platform
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern mobile application built with React Native and Expo that provides an interactive learning experience. Users can browse courses, track their progress, and engage with educational content.
 
-## Get started
+## 🚀 Features
 
-1. Install dependencies
+- 📱 Cross-platform (iOS & Android) support
+- 🔐 Secure authentication with Supabase
+- 👤 User profile management
+- 📚 Course catalog browsing
+- 🎨 Modern and responsive UI
+- 📐 Responsive design with dynamic scaling
 
-   ```bash
-   npm install
-   ```
+## 🛠 Technologies
 
-2. Start the app
+- React Native
+- Expo
+- TypeScript
+- Supabase (Backend & Authentication)
+- React Navigation
+- Custom Scaling Solution
 
-   ```bash
-    npx expo start
-   ```
+## 📱 Screenshots
 
-In the output, you'll find options to open the app in a
+[Add your screenshots here]
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🏗 Installation
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+1. Clone the repository:
 
 ```bash
-npm run reset-project
+git clone [your-repo-url]
+cd react-native-learn-platform
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Install dependencies:
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Set up environment variables:
+   Create a `.env` file in the root directory with:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+EXPO_PUBLIC_SUPABASE_URL=your_supabase_url
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-## Join the community
+4. Start the development server:
 
-Join our community of developers creating universal apps.
+```bash
+npx expo start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🧪 Testing
+
+```bash
+npm test
+```
+
+## 🤝 Contributing
+
+Feel free to open issues and pull requests!
+
+## 📝 License
+
+MIT
+
+⭐️ Star this repo if you like it!

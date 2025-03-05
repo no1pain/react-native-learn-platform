@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { authService } from "@/services/auth.service";
+import { moderateScale } from "@/shared/utils/scaling";
 
 type RootStackParamList = {
   SignUp: undefined;
@@ -64,7 +65,7 @@ const LoginWithYourAccount = () => {
       </Text>
 
       <View style={styles.inputContainer}>
-        <User size={20} color="#A0A0A0" style={styles.icon} />
+        <User size={moderateScale(20)} color="#A0A0A0" style={styles.icon} />
         <TextInput
           placeholder="Email"
           placeholderTextColor="#A0A0A0"
@@ -77,7 +78,7 @@ const LoginWithYourAccount = () => {
       </View>
 
       <View style={styles.inputContainer}>
-        <Lock size={20} color="#A0A0A0" style={styles.icon} />
+        <Lock size={moderateScale(20)} color="#A0A0A0" style={styles.icon} />
         <TextInput
           placeholder="Password"
           placeholderTextColor="#A0A0A0"
@@ -89,9 +90,17 @@ const LoginWithYourAccount = () => {
         />
         <TouchableOpacity onPress={handleTogglePasswordVisibility}>
           {passwordVisible ? (
-            <EyeOff size={20} color="#A0A0A0" style={styles.iconRight} />
+            <EyeOff
+              size={moderateScale(20)}
+              color="#A0A0A0"
+              style={styles.iconRight}
+            />
           ) : (
-            <Eye size={20} color="#A0A0A0" style={styles.iconRight} />
+            <Eye
+              size={moderateScale(20)}
+              color="#A0A0A0"
+              style={styles.iconRight}
+            />
           )}
         </TouchableOpacity>
       </View>
@@ -108,7 +117,7 @@ const LoginWithYourAccount = () => {
         <Text style={styles.signInButtonText}>
           {loading ? "Signing in..." : "Sign In"}
         </Text>
-        <ArrowRight size={24} color="white" />
+        <ArrowRight size={moderateScale(24)} color="white" />
       </TouchableOpacity>
 
       <Text style={styles.signupText}>
